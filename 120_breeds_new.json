@@ -19,7 +19,7 @@
     "Long Description": "A diminutive, hardy terrier-like toy dog known for its monkey-like face and entertaining personality. Loyal to family but wary of strangers."
   },
   {
-    "Breed": "afghan_hound",
+    "Breed": "Afghan_hound",
     "Height": "25-27\"",
     "Weight": "50-60 lbs",
     "Colors": "Any solid color (Black, Cream, Red, etc.)",
@@ -38,7 +38,7 @@
     "Long Description": "An aristocratic sighthound characterized by its unique hip structure and luxurious coat. Requires significant outdoor space for running and early socialization."
   },
   {
-    "Breed": "african_hunting_dog",
+    "Breed": "African_hunting_dog",
     "Height": "24-30\"",
     "Weight": "40-66 lbs",
     "Colors": "Patchy, mottled pattern of Black, Yellow, White, Red",
@@ -57,7 +57,7 @@
     "Long Description": "The African Wild Dog is a highly endangered, specialized hunter with unique social habits, including pack voting and cooperative care of the sick. Not suitable for domestication."
   },
   {
-    "Breed": "airedale",
+    "Breed": "Airedale",
     "Height": "22-24\"",
     "Weight": "50-70 lbs",
     "Colors": "Black or grizzle saddle on a tan body",
@@ -76,7 +76,7 @@
     "Long Description": "The 'King of Terriers,' Airedales are large, versatile dogs originally used for hunting otters. They are intelligent and protective, requiring firm but consistent training."
   },
   {
-    "Breed": "american_staffordshire_terrier",
+    "Breed": "American_Staffordshire_terrier",
     "Height": "17-19\"",
     "Weight": "50-70 lbs",
     "Colors": "Any color, solid, parti, or patched (except white more than 80%)",
@@ -95,7 +95,7 @@
     "Long Description": "A muscular, powerful dog known for its gentle nature with people, especially children, and its strong protective instincts. Requires early socialization with other dogs."
   },
   {
-    "Breed": "appenzeller",
+    "Breed": "Appenzeller",
     "Height": "20-22\"",
     "Weight": "48-55 lbs",
     "Colors": "Tri-color (Black, Tan, and White)",
@@ -114,7 +114,7 @@
     "Long Description": "The Appenzell Cattle Dog is a robust, athletic herding and driving dog. They are highly active and excel in canine sports, making them suitable only for very active families."
   },
   {
-    "Breed": "australian_terrier",
+    "Breed": "Australian_terrier",
     "Height": "9-11\"",
     "Weight": "15-20 lbs",
     "Colors": "Blue & Tan, Red, Sandy",
@@ -190,7 +190,7 @@
     "Long Description": "A popular, cheerful pack hound defined by its strong hunting instincts and love for food. Beagles require secure fencing due to their tendency to follow scents."
   },
   {
-    "Breed": "bedlington_terrier",
+    "Breed": "Bedlington_terrier",
     "Height": "15-17\"",
     "Weight": "17-23 lbs",
     "Colors": "Blue, Liver, Sandy (with or without tan points)",
@@ -209,7 +209,7 @@
     "Long Description": "Known for their unique lamb-like appearance, Bedlington Terriers are surprisingly fierce hunters. They are gentle indoors but require significant grooming to maintain their coat."
   },
   {
-    "Breed": "bernese_mountain_dog",
+    "Breed": "Bernese_mountain_dog",
     "Height": "23-27.5\"",
     "Weight": "70-115 lbs",
     "Colors": "Tri-color (Jet Black, Rust, and White)",
@@ -247,7 +247,7 @@
     "Long Description": "The only American Coonhound recognized by the AKC. They are driven scent hounds used for tracking raccoons. They are gentle family dogs but require a secure yard."
   },
   {
-    "Breed": "blenheim_spaniel",
+    "Breed": "Blenheim_spaniel",
     "Height": "12-13\"",
     "Weight": "13-18 lbs",
     "Colors": "Ruby markings on pearly white coat",
@@ -304,7 +304,7 @@
     "Long Description": "A tireless, cold-nosed hunting dog known for its unique coloring. They are intelligent but single-minded when on a scent and require a high-energy outlet."
   },
   {
-    "Breed": "border_collie",
+    "Breed": "Border_collie",
     "Height": "18-22\"",
     "Weight": "30-55 lbs",
     "Colors": "Black/White, Red/White, Merle, Sable",
@@ -323,7 +323,7 @@
     "Long Description": "Widely considered the most intelligent dog breed, the Border Collie requires constant mental and physical challenges. Without a 'job,' they become bored and potentially destructive."
   },
   {
-    "Breed": "border_terrier",
+    "Breed": "Border_terrier",
     "Height": "11-14\"",
     "Weight": "11.5-15.5 lbs",
     "Colors": "Grizzle and Tan, Blue and Tan, Red, Wheaten",
@@ -361,7 +361,7 @@
     "Long Description": "A large, elegant Russian sighthound historically used for wolf hunting. They are couch potatoes indoors but require intense bursts of speed daily in a safe, fenced area."
   },
   {
-    "Breed": "boston_bull",
+    "Breed": "Boston_bull",
     "Height": "15-17\"",
     "Weight": "10-25 lbs (divided into three weight classes)",
     "Colors": "Brindle, Seal, or Black with white markings",
@@ -380,7 +380,7 @@
     "Long Description": "The 'American Gentleman' is a cheerful, devoted dog known for its tuxedo markings. As a brachycephalic breed, they require strict temperature control to prevent overheating."
   },
   {
-    "Breed": "bouvier_des_flandres",
+    "Breed": "Bouvier_des_Flandres",
     "Height": "23.5-27.5\"",
     "Weight": "70-110 lbs",
     "Colors": "Fawn, Black, Grey, Brindle, Salt and Pepper",
@@ -418,7 +418,7 @@
     "Long Description": "Known as the 'Peter Pan' of the dog world, Boxers retain their playful, puppy-like energy well into old age. They are devoted to their families but sensitive to heat."
   },
   {
-    "Breed": "brabancon_griffon",
+    "Breed": "Brabancon_griffon",
     "Height": "7-10\"",
     "Weight": "8-10 lbs",
     "Colors": "Red, Black, Black and Tan",
@@ -456,7 +456,7 @@
     "Long Description": "A large, powerful French herding dog known for its protective nature and long, shaggy coat. They bond intensely with their families and require significant commitment to grooming and training."
   },
   {
-    "Breed": "brittany_spaniel",
+    "Breed": "Brittany_spaniel",
     "Height": "17.5-20.5\"",
     "Weight": "30-40 lbs",
     "Colors": "Orange and White, Liver and White, Tri-color (mostly white)",
@@ -513,7 +513,7 @@
     "Long Description": "A spirited, inquisitive small terrier known for its cheerful demeanor and deep-seated instinct to dig and hunt. Requires secure fencing due to prey drive."
   },
   {
-    "Breed": "cardigan",
+    "Breed": "Cardigan",
     "Height": "10.5-12.5\"",
     "Weight": "25-38 lbs",
     "Colors": "Red, Sable, Brindle, Black (all with or without tan/blue points)",
@@ -532,7 +532,7 @@
     "Long Description": "The Cardigan Welsh Corgi is distinguished by its long, fox-like tail. They are excellent, devoted companions and intelligent herders who require consistent mental stimulation."
   },
   {
-    "Breed": "chesapeake_bay_retriever",
+    "Breed": "Chesapeake_Bay_retriever",
     "Height": "21-26\"",
     "Weight": "55-80 lbs",
     "Colors": "Brown, Sedge, Deadgrass (unique colors matching environment)",
@@ -551,7 +551,7 @@
     "Long Description": "The ultimate American water retriever, known for its ability to withstand icy waters. They are powerful working dogs who bond deeply and require a very active, experienced owner."
   },
   {
-    "Breed": "chihuahua",
+    "Breed": "Chihuahua",
     "Height": "5-8\"",
     "Weight": "Under 6 lbs",
     "Colors": "Any color, solid or marked",
@@ -665,7 +665,7 @@
     "Long Description": "The oldest of the retriever breeds, recognized by its unique coat of tight curls. They are powerful, sensitive dogs that require gentle but consistent training."
   },
   {
-    "Breed": "dandie_dinmont",
+    "Breed": "Dandie_Dinmont",
     "Height": "8-11\"",
     "Weight": "18-24 lbs",
     "Colors": "Pepper (dark blue-black) or Mustard (reddish-brown)",
@@ -722,7 +722,7 @@
     "Long Description": "The Australian Dingo is an ancient, primitive canid. They are protected wild animals and not suitable as domestic pets due to their high independence and complex needs."
   },
   {
-    "Breed": "doberman",
+    "Breed": "Doberman",
     "Height": "24-28\"",
     "Weight": "60-100 lbs",
     "Colors": "Black, Red, Blue, Fawn (all with rust markings)",
@@ -741,7 +741,7 @@
     "Long Description": "A sleek, powerful guard dog known for its endurance, speed, and devotion. Dobermans thrive on structure and training and are gentle family companions when properly socialized."
   },
   {
-    "Breed": "english_foxhound",
+    "Breed": "English_foxhound",
     "Height": "21-25\"",
     "Weight": "60-75 lbs",
     "Colors": "Any hound color (Tri-color, Bi-color)",
@@ -760,7 +760,7 @@
     "Long Description": "Bred purely for the pursuit of fox, this dog is happiest running in a pack. They are gentle but not ideal for family life due to their profound need for activity and companionship."
   },
   {
-    "Breed": "english_setter",
+    "Breed": "English_setter",
     "Height": "24-27\"",
     "Weight": "45-80 lbs",
     "Colors": "Blue Belton, Orange Belton, Lemon Belton, Tri-color",
@@ -779,7 +779,7 @@
     "Long Description": "An elegant, medium-sized gun dog known for its 'belton' (ticked) coat patterns. They are sweet and mellow family dogs but retain a strong prey drive and need significant outdoor activity."
   },
   {
-    "Breed": "english_springer",
+    "Breed": "English_springer",
     "Height": "19-20\"",
     "Weight": "40-50 lbs",
     "Colors": "Black/White, Liver/White, Tri-color, Blue or Liver Roan",
@@ -798,7 +798,7 @@
     "Long Description": "The English Springer Spaniel is a compact, energetic gundog known for 'springing' game into action. They are playful, affectionate family dogs that excel in dog sports."
   },
   {
-    "Breed": "entlebucher",
+    "Breed": "Entlebucher",
     "Height": "16-21\"",
     "Weight": "45-65 lbs",
     "Colors": "Tri-color (Black, Tan, and White)",
@@ -817,7 +817,7 @@
     "Long Description": "The smallest of the four Swiss Mountain Dogs. They are highly motivated, intelligent herding dogs that require a lot of daily mental and physical challenges to prevent restlessness."
   },
   {
-    "Breed": "eskimo_dog",
+    "Breed": "Eskimo_dog",
     "Height": "20-28\"",
     "Weight": "65-105 lbs",
     "Colors": "White, Black, Red, Grey, Sable (often mixed)",
@@ -855,7 +855,7 @@
     "Long Description": "Known as the 'Peter Pan' of the retriever world, they retain a youthful, playful attitude for years. They are exuberant and excellent family dogs, requiring firm but gentle training."
   },
   {
-    "Breed": "french_bulldog",
+    "Breed": "French_bulldog",
     "Height": "11-13\"",
     "Weight": "Under 28 lbs",
     "Colors": "Brindle, Fawn, White, Cream",
@@ -874,7 +874,7 @@
     "Long Description": "The Frenchie is a compact, devoted companion dog. As a brachycephalic breed, they are highly sensitive to heat and cannot be over-exercised."
   },
   {
-    "Breed": "german_shepherd",
+    "Breed": "German_shepherd",
     "Height": "22-26\"",
     "Weight": "50-90 lbs",
     "Colors": "Black & Tan, Sable, Black, Bi-Color",
@@ -893,7 +893,7 @@
     "Long Description": "A versatile, highly intelligent working breed that requires consistent training and early socialization. Known as the world's leading police, military, and service dog."
   },
   {
-    "Breed": "german_short-haired_pointer",
+    "Breed": "German_short-haired_pointer",
     "Height": "21-25\"",
     "Weight": "45-70 lbs",
     "Colors": "Liver, Liver & White, Roan",
@@ -950,7 +950,7 @@
     "Long Description": "One of the most popular family dogs, known for their sweet temperament and strong retrieval instincts. They are excellent service and therapy dogs."
   },
   {
-    "Breed": "gordon_setter",
+    "Breed": "Gordon_setter",
     "Height": "23-27\"",
     "Weight": "45-80 lbs",
     "Colors": "Black with rich Mahogany/Tan markings",
@@ -969,7 +969,7 @@
     "Long Description": "The largest and heaviest of the Setter breeds, known for its elegant black and tan coloring. They are devoted to family but require a dedicated exercise regimen."
   },
   {
-    "Breed": "great_dane",
+    "Breed": "Great_Dane",
     "Height": "28-32\"",
     "Weight": "110-175 lbs",
     "Colors": "Fawn, Brindle, Blue, Black, Harlequin, Mantle",
@@ -988,7 +988,7 @@
     "Long Description": "Known as the 'Apollo of Dogs,' Great Danes are giant, friendly companions. They have extremely short lifespans and require specialized care to manage their growth and Bloat risk."
   },
   {
-    "Breed": "great_pyrenees",
+    "Breed": "Great_Pyrenees",
     "Height": "25-32\"",
     "Weight": "100-150 lbs",
     "Colors": "White (with possible badger, tan, or gray markings)",
@@ -1007,7 +1007,7 @@
     "Long Description": "A majestic livestock guardian dog, bred to think for itself. They are gentle with their family/flock but deeply suspicious of intruders. Requires experienced handling."
   },
   {
-    "Breed": "greater_swiss_mountain_dog",
+    "Breed": "Greater_Swiss_Mountain_dog",
     "Height": "25.5-28.5\"",
     "Weight": "85-140 lbs",
     "Colors": "Tri-color (Black, Red/Rust, and White)",
@@ -1045,7 +1045,7 @@
     "Long Description": "The Groenendael is one of the four varieties of the Belgian Shepherd Dog. They are highly active, sensitive, and thrive on working closely with their owners in complex tasks."
   },
   {
-    "Breed": "ibizan_hound",
+    "Breed": "Ibizan_hound",
     "Height": "22-27.5\"",
     "Weight": "45-50 lbs",
     "Colors": "Red, White, Red & White",
@@ -1064,7 +1064,7 @@
     "Long Description": "An elegant, ancient sighthound known for its rabbit-hunting prowess. Indoors, they are quiet and gentle, but require high fencing due to their jumping ability."
   },
   {
-    "Breed": "irish_setter",
+    "Breed": "Irish_setter",
     "Height": "24-27\"",
     "Weight": "60-70 lbs",
     "Colors": "Mahogany or deep Red",
@@ -1083,7 +1083,7 @@
     "Long Description": "A beautiful, energetic bird dog known for its striking red coat. They are slow to mature and retain their puppy energy for several years, requiring constant activity."
   },
   {
-    "Breed": "irish_terrier",
+    "Breed": "Irish_terrier",
     "Height": "18\"",
     "Weight": "25-27 lbs",
     "Colors": "Red, Red Wheaten, Wheaten",
@@ -1102,7 +1102,7 @@
     "Long Description": "The 'Daredevil' of the terrier group, known for its deep red coat and courage. They are sensitive to family praise but can be scrappy with strange dogs."
   },
   {
-    "Breed": "irish_water_spaniel",
+    "Breed": "Irish_water_spaniel",
     "Height": "21-23\"",
     "Weight": "55-68 lbs",
     "Colors": "Solid Liver",
@@ -1121,7 +1121,7 @@
     "Long Description": "The largest of the spaniels, recognized by its tight curls and 'rat tail.' They are powerful water dogs with a mischievous, clownish personality and are highly intelligent."
   },
   {
-    "Breed": "irish_wolfhound",
+    "Breed": "Irish_wolfhound",
     "Height": "30-35\"",
     "Weight": "105-180 lbs",
     "Colors": "Grey, Brindle, Red, Black, White, Fawn",
@@ -1140,7 +1140,7 @@
     "Long Description": "The tallest of all dog breeds, the Irish Wolfhound is a gentle, dignified giant. Their lifespan is tragically short, and they require specialized care due to their giant size."
   },
   {
-    "Breed": "italian_greyhound",
+    "Breed": "Italian_greyhound",
     "Height": "13-15\"",
     "Weight": "7-14 lbs",
     "Colors": "All colors and markings",
@@ -1159,7 +1159,7 @@
     "Long Description": "A tiny, elegant version of the Greyhound, prized as companions for millennia. They are fragile and highly sensitive to cold, requiring protective clothing in winter."
   },
   {
-    "Breed": "japanese_spaniel",
+    "Breed": "Japanese_spaniel",
     "Height": "8-11\"",
     "Weight": "7-9 lbs",
     "Colors": "Black and White, Red and White",
@@ -1273,7 +1273,7 @@
     "Long Description": "A large, beautiful livestock guardian. Kuvaszok bond intensely with their human family and livestock, and their protective instinct is powerful, demanding early socialization."
   },
   {
-    "Breed": "labrador_retriever",
+    "Breed": "Labrador_retriever",
     "Height": "21.5-24.5\"",
     "Weight": "55-80 lbs",
     "Colors": "Black, Yellow, Chocolate",
@@ -1292,7 +1292,7 @@
     "Long Description": "The quintessential family and service dog, known for its gentle mouth and water love. Labs are prone to obesity and require careful portion control."
   },
   {
-    "Breed": "lakeland_terrier",
+    "Breed": "Lakeland_terrier",
     "Height": "13.5-15\"",
     "Weight": "15-17 lbs",
     "Colors": "Blue, Black, Liver, Red, Wheaten, Grizzle",
@@ -1311,7 +1311,7 @@
     "Long Description": "A tough, game terrier originally bred to hunt fox in the Lake District mountains. They are affectionate companions but retain strong predatory instincts."
   },
   {
-    "Breed": "leonberg",
+    "Breed": "Leonberg",
     "Height": "25.5-31.5\"",
     "Weight": "120-170 lbs",
     "Colors": "Lion Yellow, Red, Reddish Brown (with black mask)",
@@ -1330,7 +1330,7 @@
     "Long Description": "A giant, gentle breed often described as a mix of Newfoundland, Saint Bernard, and Pyrenees. They are excellent family dogs known for their patience and love of water."
   },
   {
-    "Breed": "lhasa",
+    "Breed": "Lhasa",
     "Height": "10-11\"",
     "Weight": "12-18 lbs",
     "Colors": "Gold, Cream, Honey, Dark Grizzle, Black",
@@ -1387,7 +1387,7 @@
     "Long Description": "The Belgian Malinois is one of the world's most capable working dogs (military/police). They are extremely intense and are not suitable for novice owners or inactive lifestyles."
   },
   {
-    "Breed": "maltese_dog",
+    "Breed": "Maltese_dog",
     "Height": "7-9\"",
     "Weight": "Under 7 lbs",
     "Colors": "White",
@@ -1406,7 +1406,7 @@
     "Long Description": "An ancient breed prized for its beauty and gentle nature. The Maltese is a delicate dog that requires intensive grooming and dental care."
   },
   {
-    "Breed": "mexican_hairless",
+    "Breed": "Mexican_hairless",
     "Height": "10-23\"",
     "Weight": "10-55 lbs",
     "Colors": "Black, Slate, Red, Bronze, Liver",
@@ -1482,7 +1482,7 @@
     "Long Description": "A robust, outgoing terrier known for its distinctive beard and eyebrows. They are excellent companions and adaptable family dogs, but prone to weight gain."
   },
   {
-    "Breed": "newfoundland",
+    "Breed": "Newfoundland",
     "Height": "26-28\"",
     "Weight": "100-150 lbs",
     "Colors": "Black, Brown, Gray, Landseer (Black & White)",
@@ -1501,7 +1501,7 @@
     "Long Description": "The 'gentle giant' of the dog world, originally bred to rescue fishermen. They are renowned for their patient nature, love of water, and devotion to children."
   },
   {
-    "Breed": "norfolk_terrier",
+    "Breed": "Norfolk_terrier",
     "Height": "9-10\"",
     "Weight": "11-12 lbs",
     "Colors": "Red, Wheaten, Black and Tan, Grizzle",
@@ -1520,7 +1520,7 @@
     "Long Description": "The smallest of the working terriers, known for its drop ears. They are affectionate companions and excellent rodent hunters."
   },
   {
-    "Breed": "norwegian_elkhound",
+    "Breed": "Norwegian_elkhound",
     "Height": "19.5-20.5\"",
     "Weight": "48-55 lbs",
     "Colors": "Gray (dark saddle, silver tips)",
@@ -1539,7 +1539,7 @@
     "Long Description": "An ancient Nordic hunting dog used for tracking and holding elk/moose. They are highly protective of their family but require substantial exercise and cool weather."
   },
   {
-    "Breed": "norwich_terrier",
+    "Breed": "Norwich_terrier",
     "Height": "10\"",
     "Weight": "11-12 lbs",
     "Colors": "Red, Wheaten, Black and Tan, Grizzle",
@@ -1558,7 +1558,7 @@
     "Long Description": "A small, sturdy terrier known for its prick ears. They are energetic and affectionate, making them great companions but require supervision around small prey animals."
   },
   {
-    "Breed": "old_english_sheepdog",
+    "Breed": "Old_English_sheepdog",
     "Height": "21-22\"",
     "Weight": "60-100 lbs",
     "Colors": "Grey, Grizzle, Blue (with white markings)",
@@ -1615,7 +1615,7 @@
     "Long Description": "Known for its large, butterfly-like ears. The Papillon is an athletic, intelligent toy breed that excels in agility and obedience."
   },
   {
-    "Breed": "pekinese",
+    "Breed": "Pekinese",
     "Height": "6-9\"",
     "Weight": "Up to 14 lbs",
     "Colors": "All colors and markings (often Red, Sable, Black)",
@@ -1634,7 +1634,7 @@
     "Long Description": "An ancient Chinese companion dog, bred for royalty. They are flat-faced (brachycephalic) and require protection from heat and rough handling."
   },
   {
-    "Breed": "pembroke",
+    "Breed": "Pembroke",
     "Height": "10-12\"",
     "Weight": "Up to 30 lbs",
     "Colors": "Red, Sable, Fawn, Black and Tan (with or without white)",
@@ -1653,7 +1653,7 @@
     "Long Description": "The Pembroke Welsh Corgi is a low-set, sturdy herding dog known for its 'bobtail' appearance. They are highly intelligent, energetic, and prone to barking."
   },
   {
-    "Breed": "pomeranian",
+    "Breed": "Pomeranian",
     "Height": "6-7\"",
     "Weight": "3-7 lbs",
     "Colors": "All colors (Orange, Black, Cream, Sable most common)",
@@ -1710,7 +1710,7 @@
     "Long Description": "A beautiful, versatile coonhound known for its striking red coat. They are dedicated hunting partners who are gentle and affectionate house companions."
   },
   {
-    "Breed": "rhodesian_ridgeback",
+    "Breed": "Rhodesian_ridgeback",
     "Height": "24-27\"",
     "Weight": "70-85 lbs",
     "Colors": "Light Wheaten to Red Wheaten",
@@ -1729,7 +1729,7 @@
     "Long Description": "Known for the signature ridge of hair running backward down its spine. Bred to hunt lions, they are powerful, dignified, and require early socialization and strong leadership."
   },
   {
-    "Breed": "rottweiler",
+    "Breed": "Rottweiler",
     "Height": "22-27\"",
     "Weight": "80-135 lbs",
     "Colors": "Black with clearly defined rust markings",
@@ -1748,7 +1748,7 @@
     "Long Description": "A strong, formidable working breed historically used for driving cattle and pulling carts. They are gentle and playful with family but reserved and protective of strangers, requiring experienced handling."
   },
   {
-    "Breed": "saint_bernard",
+    "Breed": "Saint_Bernard",
     "Height": "26-30\"",
     "Weight": "120-180 lbs",
     "Colors": "Red and White, Brown and White",
@@ -1767,7 +1767,7 @@
     "Long Description": "Known for their rescue work in the Swiss Alps. They are giant, loving dogs that are sensitive to heat and require specialized joint and growth management."
   },
   {
-    "Breed": "saluki",
+    "Breed": "Saluki",
     "Height": "23-28\"",
     "Weight": "40-65 lbs",
     "Colors": "White, Cream, Fawn, Golden, Black/Tan, Tri-color",
@@ -1786,7 +1786,7 @@
     "Long Description": "One of the oldest dog breeds, historically used by Egyptian royalty. They are reserved and gentle indoors but are driven sighthounds requiring extreme security outdoors."
   },
   {
-    "Breed": "samoyed",
+    "Breed": "Samoyed",
     "Height": "19-23.5\"",
     "Weight": "35-65 lbs",
     "Colors": "White, Cream, Biscuit",
@@ -1824,7 +1824,7 @@
     "Long Description": "A small, fox-like Belgian barge dog known for its dense black coat and intense curiosity. They are excellent, persistent watchdogs."
   },
   {
-    "Breed": "scotch_terrier",
+    "Breed": "Scotch_terrier",
     "Height": "10\"",
     "Weight": "18-22 lbs",
     "Colors": "Black, Brindle, Wheaten",
@@ -1843,7 +1843,7 @@
     "Long Description": "The Scottish Terrier is a distinctive, low-set terrier known for its confidence and beard. They are highly independent and require patient, firm training."
   },
   {
-    "Breed": "scottish_deerhound",
+    "Breed": "Scottish_deerhound",
     "Height": "28-32\"",
     "Weight": "75-110 lbs",
     "Colors": "Blue-gray, Gray, Brindle, Yellow, Red",
@@ -1862,7 +1862,7 @@
     "Long Description": "A giant sighthound bred to hunt red deer. They are gentle, reserved dogs that require large, secure areas for exercise and are highly sensitive to handling."
   },
   {
-    "Breed": "sealyham_terrier",
+    "Breed": "Sealyham_terrier",
     "Height": "10.5\"",
     "Weight": "20-24 lbs",
     "Colors": "White (may have lemon, badger, or tan markings on head)",
@@ -1881,7 +1881,7 @@
     "Long Description": "A sturdy, charming terrier known for its prominent foreface furnishings. They are devoted companions but retain a strong prey drive and enjoy digging."
   },
   {
-    "Breed": "shetland_sheepdog",
+    "Breed": "Shetland_sheepdog",
     "Height": "13-16\"",
     "Weight": "15-25 lbs",
     "Colors": "Sable, Tri-color, Blue Merle, Bi-Black",
@@ -1900,7 +1900,7 @@
     "Long Description": "A miniature working Collie, known as the 'Sheltie.' They are extremely intelligent, sensitive, and thrive on pleasing their owners, but are prone to excessive barking."
   },
   {
-    "Breed": "shih-tzu",
+    "Breed": "Shih-Tzu",
     "Height": "9-10.5\"",
     "Weight": "9-16 lbs",
     "Colors": "All colors, most often Gold, White, Black",
@@ -1919,7 +1919,7 @@
     "Long Description": "Bred to resemble a lion, the Shih Tzu is a gentle companion dog. They are brachycephalic and require daily grooming to prevent severe matting."
   },
   {
-    "Breed": "siberian_husky",
+    "Breed": "Siberian_husky",
     "Height": "20-23.5\"",
     "Weight": "35-60 lbs",
     "Colors": "Black/White, Gray/White, Red/White, Sable/White",
@@ -1976,7 +1976,7 @@
     "Long Description": "Known for the 'Wheaten Greetin'' (enthusiastic jumping), they are happy, energetic family dogs. They require significant brushing to maintain their soft coat."
   },
   {
-    "Breed": "staffordshire_bullterrier",
+    "Breed": "Staffordshire_bullterrier",
     "Height": "14-16\"",
     "Weight": "24-38 lbs",
     "Colors": "Red, Fawn, White, Black, Blue, Brindle (often with white)",
@@ -2033,7 +2033,7 @@
     "Long Description": "The original Schnauzer, a sturdy, medium-sized working dog. They are highly intelligent and protective, requiring consistent exercise and mental challenges."
   },
   {
-    "Breed": "sussex_spaniel",
+    "Breed": "Sussex_spaniel",
     "Height": "13-15\"",
     "Weight": "35-45 lbs",
     "Colors": "Rich Golden Liver (unique to the breed)",
@@ -2052,7 +2052,7 @@
     "Long Description": "A unique spaniel known for its low, long body, slow gait, and deep, resonant bark. They are generally placid companions but require persistence in training."
   },
   {
-    "Breed": "tibetan_mastiff",
+    "Breed": "Tibetan_mastiff",
     "Height": "24-30\"",
     "Weight": "70-150 lbs",
     "Colors": "Black, Brown, Blue, Gold (often with tan)",
@@ -2071,7 +2071,7 @@
     "Long Description": "A giant, ancient livestock guardian. TMs are highly reserved with strangers and are naturally nocturnal watchdogs, requiring experienced ownership."
   },
   {
-    "Breed": "tibetan_terrier",
+    "Breed": "Tibetan_terrier",
     "Height": "14-17\"",
     "Weight": "20-24 lbs",
     "Colors": "Any color except chocolate/liver",
@@ -2147,7 +2147,7 @@
     "Long Description": "Nicknamed the 'Velcro dog' due to its extreme attachment to its owner. Vizslas are high-energy, sensitive gun dogs requiring active companionship."
   },
   {
-    "Breed": "walker_hound",
+    "Breed": "Walker_hound",
     "Height": "20-27\"",
     "Weight": "50-70 lbs",
     "Colors": "Tri-color (Black, White, and Tan)",
@@ -2166,7 +2166,7 @@
     "Long Description": "The Treeing Walker Coonhound is a fast, tireless hunter known for its clear, ringing bark. They are energetic and require secure fencing."
   },
   {
-    "Breed": "weimaraner",
+    "Breed": "Weimaraner",
     "Height": "23-27\"",
     "Weight": "55-90 lbs",
     "Colors": "Mouse-Gray, Silver-Gray",
@@ -2185,7 +2185,7 @@
     "Long Description": "Known as the 'Gray Ghost,' Weimaraners are highly intelligent, high-energy gun dogs that require constant companionship. They are notoriously prone to separation anxiety."
   },
   {
-    "Breed": "welsh_springer_spaniel",
+    "Breed": "Welsh_springer_spaniel",
     "Height": "18-19\"",
     "Weight": "35-55 lbs",
     "Colors": "Rich Red and White",
@@ -2204,7 +2204,7 @@
     "Long Description": "A compact, active gundog known for its beautiful red and white coat. They are friendly family dogs that require consistent daily exercise and mental challenges."
   },
   {
-    "Breed": "west_highland_white_terrier",
+    "Breed": "West_Highland_white_terrier",
     "Height": "10-11\"",
     "Weight": "13-20 lbs",
     "Colors": "White",
@@ -2261,7 +2261,7 @@
     "Long Description": "A classic, active terrier known for its spirited demeanor. They are highly intelligent but require strong leadership to manage their assertive nature."
   },
   {
-    "Breed": "yorkshire_terrier",
+    "Breed": "Yorkshire_terrier",
     "Height": "7-8\"",
     "Weight": "Under 7 lbs",
     "Colors": "Blue and Tan",
