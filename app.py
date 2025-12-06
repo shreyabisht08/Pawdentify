@@ -1,43 +1,99 @@
 import streamlit as st
 import tensorflow as tf
 import numpy as np
+import google.generativeai as genai
 from PIL import Image
 import json
-import google.generativeai as genai
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.applications.resnet import preprocess_input
+import base64
 
-# ------------------------------------------------------
-# PAGE CONFIG
-# ------------------------------------------------------
-st.set_page_config(page_title="Dog Breed Detector", layout="wide")
+# -------------------------------------------------------------
+# PAGE SETTINGS
+# -------------------------------------------------------------
+st.set_page_config(
+    page_title="Dog Breed Detection",
+    layout="wide"
+)
 
-# ------------------------------------------------------
-# CUSTOM CSS (Dog Theme + Popup Chatbot)
-# ------------------------------------------------------
-dog_theme = """
+# -------------------------------------------------------------
+# CUSTOM BACKGROUND IMAGE FOR HOME PAGE
+# -------------------------------------------------------------
+def set_background(image_url):
+    st.markdown(f"""
+        <style>
+        .main {{
+            background-image: url('{image_url}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }}
+        </style>
+    """, unsafe_allow_html=True)
+
+# -------------------------------------------------------------
+# DOG THEME + UI CSS
+# -------------------------------------------------------------
+dog_css = """
 <style>
-body { font-family: 'Poppins', sans-serif; }
-.main { background: linear-gradient(135deg, #fffaf4 0%, #ffe8d6 100%); }
+h1, h2, h3 {
+    color: #3c2f2f;
+    font-weight: 700;
+}
 
-h1, h2, h3 { color: #4b3621; font-weight: 700; }
+/* Sidebar */
+.css-1d391kg, .css-1lcbmhc {
+    background-color: #fff7ec !important;
+}
 
+/* Cards */
 .dog-card {
     padding: 20px;
     border-radius: 15px;
-    background: #fffdf7;
+    background: #fffaf0;
     border: 2px solid #d2b48c;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 18px rgba(0,0,0,0.1);
 }
 
+/* Upload box */
+.uploadbox {
+    padding: 20px;
+    background: #fff8e7;
+    border: 2px dashed #c9a46c;
+    border-radius: 15px;
+    text-align: center;
+}
+
+/* FLOATING CHAT ICON */
+#chat-icon {
+    position: fixed;
+    bottom: 35px;
+    right: 35px;
+    width: 80px;
+    height: 80px;
+    background-image: url('https://i.imgur.com/8qZz7oZ.png');
+    background-size: cover;
+    background-position: center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0px 4px 18px rgba(0,0,0,0.3);
+    animation: float 3s infinite ease-in-out;
+    z-index: 99999;
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+}
+
+/* CHAT POPUP WINDOW */
 #chat-popup {
     position: fixed;
-    bottom: 110px;
-    right: 35px;
-    width: 330px;
-    height: 430px;
+    bottom: 130px;
+    right: 30px;
+    width: 340px;
+    height: 480px;
     background: white;
-    border-radius: 15px;
+    border-radius: 20px;
     border: 2px solid #c9a46c;
     padding: 15px;
     display: none;
@@ -51,35 +107,20 @@ h1, h2, h3 { color: #4b3621; font-weight: 700; }
     to   { transform: translateY(0); opacity: 1; }
 }
 
-#chat-btn {
-    position: fixed;
-    bottom: 30px;
-    right: 35px;
-    background: #8b5e34;
-    color: white;
-    border-radius: 40px;
-    padding: 14px 24px;
-    font-size: 17px;
-    font-weight: bold;
-    cursor: pointer;
-    border: none;
-    z-index: 99999;
-    transition: 0.3s;
-}
-#chat-btn:hover { background: #5c3b21; }
-
 #chat-close {
     float: right;
     cursor: pointer;
-    color: #8b5e34;
-    font-size: 20px;
+    color: #885533;
+    font-size: 22px;
 }
 </style>
 """
-st.markdown(dog_theme, unsafe_allow_html=True)
+st.markdown(dog_css, unsafe_allow_html=True)
 
-# JS for popup chatbot
-popup_js = """
+# -------------------------------------------------------------
+# CHATBOT POPUP JAVASCRIPT
+# -------------------------------------------------------------
+chat_js = """
 <script>
 function toggleChat() {
     var box = document.getElementById("chat-popup");
@@ -91,37 +132,37 @@ function toggleChat() {
 }
 </script>
 """
-st.markdown(popup_js, unsafe_allow_html=True)
+st.markdown(chat_js, unsafe_allow_html=True)
 
-# ------------------------------------------------------
-# GEMINI AI CONFIG
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# GEMINI API CONFIG
+# -------------------------------------------------------------
 genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-gemini = genai.GenerativeModel("gemini-2.0-flash")
+gemini = genai.GenerativeModel("gemini-2.5-flash")
 
-# ------------------------------------------------------
+# -------------------------------------------------------------
 # LOAD MODEL
-# ------------------------------------------------------
+# -------------------------------------------------------------
 @st.cache_resource
 def load_model():
     return tf.keras.models.load_model("dog_breed_resnet.keras")
 
 model = load_model()
 
-# ------------------------------------------------------
-# LOAD CLASS LABELS
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# LOAD LABEL MAP
+# -------------------------------------------------------------
 @st.cache_data
-def load_class_indices():
+def load_classes():
     with open("class_indices.json", "r") as f:
         data = json.load(f)
     return {int(v): k for k, v in data.items()}
 
-label_map = load_class_indices()
+label_map = load_classes()
 
-# ------------------------------------------------------
-# LOAD BREED DETAILS
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# BREED INFO
+# -------------------------------------------------------------
 @st.cache_data
 def load_breed_info():
     with open("120_breeds_new.json", "r") as f:
@@ -130,70 +171,54 @@ def load_breed_info():
 
 breed_info = load_breed_info()
 
-# ------------------------------------------------------
-# BREED PREDICTION (FIXED VERSION)
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# PREDICT BREED FUNCTION
+# -------------------------------------------------------------
 def predict_breed(img):
     img = img.resize((224, 224))
-    arr = image.img_to_array(img)
-    arr = np.expand_dims(arr, axis=0)
-
-    # ⭐ CRITICAL FIX ⭐
-    arr = preprocess_input(arr)
-
+    arr = np.array(img) / 255.0
+    arr = np.expand_dims(arr, 0)
     preds = model.predict(arr)
     idx = np.argmax(preds)
     breed = label_map[idx]
     conf = float(np.max(preds) * 100)
     return breed, conf
 
-# ------------------------------------------------------
-# BREED DETAILS
-# ------------------------------------------------------
-def get_breed_details(breed):
-    if breed in breed_info:
-        info = breed_info[breed]
-        output = f"### 📘 About {breed}\n"
-        for k, v in info.items():
-            if k != "Breed":
-                output += f"**{k}:** {v}\n\n"
-        return output
-    return "No information available."
-
-# ------------------------------------------------------
-# SESSION STATE (for Prediction History)
-# ------------------------------------------------------
-if "history" not in st.session_state:
-    st.session_state["history"] = []
-
-# ------------------------------------------------------
-# SIDEBAR NAVIGATION
-# ------------------------------------------------------
-pages = ["🏠 Home", "🐶 Breed Detector", "📜 Prediction History"]
+# -------------------------------------------------------------
+# APP SIDEBAR
+# -------------------------------------------------------------
+pages = ["🏠 Home", "🐶 Breed Detector", "📂 Prediction History"]
 choice = st.sidebar.radio("Navigate", pages)
 
-# ------------------------------------------------------
-# HOME PAGE
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# 1️⃣ HOME PAGE
+# -------------------------------------------------------------
 if choice == "🏠 Home":
+    set_background("https://wallpapercave.com/wp/wp2704827.jpg")
+
     st.title("🐾 Dog Breed Detection System")
-    st.write("""
+
+    st.markdown("""
     This application includes:
-    - 🧠 A deep learning model trained on 120 dog breeds  
-    - 📷 Real-time dog breed prediction  
-    - 🤖 AI chatbot powered by Gemini  
-    - 📘 Detailed breed information  
-    - 📝 History of all predictions  
+
+    - 🧠 Deep learning model trained on **120 dog breeds**
+    - 📸 Real-time dog breed prediction
+    - 🤖 AI chatbot powered by **Gemini**
+    - 📘 Detailed breed information
+    - 📝 History of all predictions
     """)
 
-# ------------------------------------------------------
-# BREED DETECTOR PAGE
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# 2️⃣ BREED DETECTOR
+# -------------------------------------------------------------
 elif choice == "🐶 Breed Detector":
-    st.title("🐶 Dog Breed Detector")
+    st.title("🐶 Upload an Image to Detect Breed")
     st.markdown('<div class="dog-card">', unsafe_allow_html=True)
 
-    uploaded = st.file_uploader("Upload a dog image", type=["jpg", "jpeg", "png", "webp"])
+    uploaded = st.file_uploader("Upload Dog Image", type=["jpg", "jpeg", "png", "webp"])
+
+    if "history" not in st.session_state:
+        st.session_state.history = []
 
     if uploaded:
         img = Image.open(uploaded).convert("RGB")
@@ -204,49 +229,59 @@ elif choice == "🐶 Breed Detector":
         st.success(f"### 🐾 Breed: **{breed}**")
         st.info(f"### 📊 Confidence: **{conf:.2f}%**")
 
-        # save to history
-        st.session_state["history"].append({
-            "image": img,
+        # Save to history
+        st.session_state.history.append({
+            "image": uploaded.getvalue(),
             "breed": breed,
             "confidence": conf
         })
 
         if st.button("Know More 🐾"):
-            st.markdown(get_breed_details(breed))
+            st.markdown("### 📘 Breed Details")
+            info = breed_info.get(breed, None)
+            if info:
+                for key, value in info.items():
+                    if key != "Breed":
+                        st.write(f"**{key}:** {value}")
+            else:
+                st.warning("No details available.")
 
     st.markdown('</div>', unsafe_allow_html=True)
 
-# ------------------------------------------------------
-# HISTORY PAGE
-# ------------------------------------------------------
-elif choice == "📜 Prediction History":
-    st.title("📜 Past Predictions")
+# -------------------------------------------------------------
+# 3️⃣ PREDICTION HISTORY
+# -------------------------------------------------------------
+elif choice == "📂 Prediction History":
+    st.title("📂 Your Past Predictions")
 
-    if len(st.session_state["history"]) == 0:
-        st.info("No predictions yet!")
+    if "history" not in st.session_state or len(st.session_state.history) == 0:
+        st.info("No history yet.")
     else:
-        for idx, item in enumerate(st.session_state["history"]):
-            st.write(f"### 🐶 Prediction #{idx+1}")
+        for item in st.session_state.history:
             st.image(item["image"], width=200)
             st.write(f"**Breed:** {item['breed']}")
             st.write(f"**Confidence:** {item['confidence']:.2f}%")
             st.markdown("---")
 
-# ------------------------------------------------------
-# POPUP CHATBOT WINDOW
-# ------------------------------------------------------
+# -------------------------------------------------------------
+# CHATBOT POPUP HTML
+# -------------------------------------------------------------
 st.markdown("""
 <div id="chat-popup">
     <span id="chat-close" onclick="toggleChat()">✖</span>
-    <h4>🐾 Dog Chatbot</h4>
-    <p style="font-size:13px;">Ask anything about dogs!</p>
+    <h4>🤖 PawBot</h4>
+    <p style="font-size:13px;">Ask me anything about dogs!</p>
 </div>
-<button id="chat-btn" onclick="toggleChat()">💬 Chat</button>
+
+<div id="chat-icon" onclick="toggleChat()"></div>
 """, unsafe_allow_html=True)
 
-# CHATBOT INPUT
-chat_input = st.text_input("Chatbot:", key="popup_input")
-if st.button("Send", key="popup_send"):
-    if chat_input.strip():
-        reply = gemini.generate_content(chat_input)
-        st.write("**AI:**", reply.text)
+# -------------------------------------------------------------
+# CHATBOT LOGIC
+# -------------------------------------------------------------
+chat_msg = st.text_input("", key="chat_input", label_visibility="collapsed")
+
+if st.button("Send", key="send_chat"):
+    if chat_msg.strip():
+        reply = gemini.generate_content(chat_msg)
+        st.write("**PawBot:**", reply.text)
