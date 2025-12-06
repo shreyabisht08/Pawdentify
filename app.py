@@ -119,7 +119,7 @@ function toggleChat() {
 # -------------------------------------------------------
 # GEMINI CONFIG
 # -------------------------------------------------------
-genai.configure(api_key=st.secrets["AIzaSyBWFR1zuBmubAMh_0NUdT2QWSkqjnQvK10"])
+genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 gemini = genai.GenerativeModel("gemini-2.5-flash")
 
 # -------------------------------------------------------
