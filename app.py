@@ -365,10 +365,40 @@ page = st.sidebar.radio("Select Page", ["🏠 Home", "🐶 Breed Detector", "�
 # HOME PAGE
 # ------------------------------------------------------
 if page == "🏠 Home":
+    # Add background image with overlay
     st.markdown("""
-        <div class='main-header'>
+        <style>
+        .home-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
+                        url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSTqxZ4M_yClxdk8uk6QQqrtxRO8cnbv7qZAg&s');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 80px 30px;
+            border-radius: 15px;
+            color: white;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .home-hero h1 {
+            font-size: 3.5em;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .home-hero p {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+        </style>
+        <div class='home-hero'>
             <h1>🐾 Pawdentify</h1>
             <p>Intelligent Dog Breed Detection & AI Assistant</p>
+            <p style='font-size: 1.1em; margin-top: 20px;'>Discover any dog breed instantly with AI-powered recognition</p>
         </div>
     """, unsafe_allow_html=True)
 
