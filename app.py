@@ -15,120 +15,167 @@ st.set_page_config(
     page_title="🐾 Pawdentify - Dog Breed Detector",
     layout="wide",
     initial_sidebar_state="expanded",
+    theme="light"  # Default theme
 )
 
 
-# ------------------------------------------------------
-# MODERN CSS STYLING
-# ------------------------------------------------------
-st.markdown("""
+# Initialize theme in session state
+if "theme" not in st.session_state:
+    st.session_state.theme = "light"
+
+# Dynamic CSS styling based on theme
+def get_theme_colors():
+    if st.session_state.theme == "dark":
+        return {
+            "bg_primary": "#0e1117",
+            "bg_secondary": "#161b22",
+            "text_primary": "#e6edf3",
+            "text_secondary": "#8b949e",
+            "card_bg": "#161b22",
+            "border_color": "#30363d",
+            "accent": "#667eea",
+            "button_bg": "#667eea",
+            "button_hover_bg": "#764ba2",
+            "info_bg": "#0d3a66",
+            "success_bg": "#033a16",
+        }
+    else:
+        return {
+            "bg_primary": "#ffffff",
+            "bg_secondary": "#f6f8fb",
+            "text_primary": "#000000",
+            "text_secondary": "#666666",
+            "card_bg": "#ffffff",
+            "border_color": "#e0e0e0",
+            "accent": "#667eea",
+            "button_bg": "#667eea",
+            "button_hover_bg": "#764ba2",
+            "info_bg": "#e3f2fd",
+            "success_bg": "#e8f5e9",
+        }
+
+colors = get_theme_colors()
+
+# Apply dynamic CSS styling
+st.markdown(f"""
     <style>
-    * {
+    * {{
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-    }
+    }}
     
-    body {
+    body, .stApp {{
+        background-color: {colors['bg_primary']};
+        color: {colors['text_primary']};
+    }}
+    
+    body {{
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    }
+    }}
     
-    .main-header {
+    .main-header {{
         text-align: center;
         padding: 30px 0;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, {colors['accent']} 0%, #764ba2 100%);
         color: white;
         border-radius: 15px;
         margin-bottom: 30px;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+    }}
     
-    .main-header h1 {
+    .main-header h1 {{
         font-size: 2.5em;
         margin-bottom: 10px;
         font-weight: 700;
-    }
+    }}
     
-    .main-header p {
+    .main-header p {{
         font-size: 1.1em;
         opacity: 0.95;
-    }
+    }}
     
-    .card {
-        background: white;
+    .card {{
+        background: {colors['card_bg']};
         border-radius: 12px;
         padding: 20px;
         margin: 15px 0;
         box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        border-left: 4px solid #667eea;
+        border-left: 4px solid {colors['accent']};
         transition: transform 0.2s, box-shadow 0.2s;
-    }
+        color: {colors['text_primary']};
+    }}
     
-    .card:hover {
+    .card:hover {{
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    }
+    }}
     
-    .breed-card {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    .breed-card {{
+        background: {'linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%)' if st.session_state.theme == 'dark' else 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)'};
         border-radius: 12px;
         padding: 25px;
         margin: 20px 0;
         box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
+        color: {colors['text_primary']};
+    }}
     
-    .breed-details {
-        background: white;
+    .breed-details {{
+        background: {colors['card_bg']};
         border-radius: 10px;
         padding: 20px;
         margin: 15px 0;
-        border-left: 5px solid #667eea;
-    }
+        border-left: 5px solid {colors['accent']};
+        color: {colors['text_primary']};
+    }}
     
-    .breed-details h2 {
-        color: #667eea;
+    .breed-details h2 {{
+        color: {colors['accent']};
         margin-bottom: 15px;
-    }
+    }}
     
-    .breed-details-item {
+    .breed-details-item {{
         margin: 10px 0;
         padding: 10px;
-        background: #f8f9fa;
+        background: {colors['bg_secondary']};
         border-radius: 5px;
-    }
+        color: {colors['text_primary']};
+    }}
     
-    .info-box {
-        background: #e3f2fd;
-        border-left: 4px solid #667eea;
+    .info-box {{
+        background: {colors['info_bg']};
+        border-left: 4px solid {colors['accent']};
         padding: 15px;
         border-radius: 5px;
         margin: 15px 0;
-    }
+        color: {colors['text_primary']};
+    }}
     
-    .success-box {
-        background: #e8f5e9;
+    .success-box {{
+        background: {colors['success_bg']};
         border-left: 4px solid #4caf50;
         padding: 15px;
         border-radius: 5px;
         margin: 15px 0;
-    }
+        color: {colors['text_primary']};
+    }}
     
-    .sidebar-nav {
+    .sidebar-nav {{
         padding: 20px 0;
-    }
+    }}
     
-    .sidebar-nav-item {
+    .sidebar-nav-item {{
         padding: 12px 15px;
         margin: 8px 0;
         border-radius: 8px;
         cursor: pointer;
         transition: all 0.3s;
-    }
+    }}
     
-    .stButton > button {
+    .stButton > button {{
         width: 100%;
         padding: 12px 24px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, {colors['button_bg']} 0%, {colors['button_hover_bg']} 100%);
         color: white;
         border: none;
         border-radius: 8px;
@@ -136,27 +183,22 @@ st.markdown("""
         font-size: 1em;
         cursor: pointer;
         transition: transform 0.2s, box-shadow 0.2s;
-    }
+    }}
     
-    .stButton > button:hover {
+    .stButton > button:hover {{
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
-    }
+    }}
     
-    [data-testid="stMetricValue"] {
-        color: #667eea;
+    [data-testid="stMetricValue"] {{
+        color: {colors['accent']};
         font-weight: 700;
-    }
+    }}
     </style>
 """, unsafe_allow_html=True)
 
 
-# ------------------------------------------------------
 # DARK/LIGHT THEME SWITCH
-# ------------------------------------------------------
-if "theme" not in st.session_state:
-    st.session_state.theme = "light"
-
 def toggle_theme():
     st.session_state.theme = "dark" if st.session_state.theme == "light" else "light"
     st.rerun()
@@ -424,8 +466,15 @@ elif page == "🐶 Breed Detector":
         
         # Know More Section
         st.markdown("---")
-        if st.button("📖 Know More About This Breed", use_container_width=True):
-            st.session_state.show_details = True
+        col1, col2 = st.columns([0.8, 0.2])
+        with col1:
+            if st.button("📖 Know More About This Breed", use_container_width=True):
+                st.session_state.show_details = not st.session_state.get("show_details", False)
+        with col2:
+            if st.session_state.get("show_details", False):
+                if st.button("Close ✕", use_container_width=True):
+                    st.session_state.show_details = False
+                    st.rerun()
         
         if st.session_state.get("show_details", False):
             breed_details = get_breed_details(breed)
