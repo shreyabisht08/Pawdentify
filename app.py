@@ -3,10 +3,8 @@ import tensorflow as tf
 import numpy as np
 from PIL import Image
 import json
-import google.generativeai as genai
 from tensorflow.keras.preprocessing import image
 from tensorflow.keras.applications.resnet import preprocess_input
-import re
 
 # ------------------------------------------------------
 # PAGE CONFIG
@@ -14,61 +12,7 @@ import re
 st.set_page_config(page_title="Dog Breed Detector", layout="wide")
 
 # ------------------------------------------------------
-# DARK / LIGHT MODE
-# ------------------------------------------------------
-if "dark" not in st.session_state:
-    st.session_state.dark = False
-
-def switch_theme():
-    st.session_state.dark = not st.session_state.dark
-
-theme_color = {
-    True: {
-        "bg": "#1b1b1b",
-        "text": "white",
-        "card": "#2a2a2a",
-        "border": "#c49b63",
-    },
-    False: {
-        "bg": "white",
-        "text": "black",
-        "card": "#fffdf7",
-        "border": "#d2b48c",
-    }
-}
-
-css = f"""
-<style>
-body {{
-    background-color: {theme_color[st.session_state.dark]['bg']} !important;
-    color: {theme_color[st.session_state.dark]['text']} !important;
-}}
-.block-container {{
-    background-color: {theme_color[st.session_state.dark]['bg']} !important;
-    color: {theme_color[st.session_state.dark]['text']} !important;
-}}
-.card {{
-    background: {theme_color[st.session_state.dark]['card']};
-    padding: 20px;
-    border-radius: 16px;
-    border: 2px solid {theme_color[st.session_state.dark]['border']};
-}}
-</style>
-"""
-
-st.markdown(css, unsafe_allow_html=True)
-
-# Toggle button
-st.sidebar.button("🌓 Toggle Dark Mode", on_click=switch_theme)
-
-# ------------------------------------------------------
-# GEMINI CONFIG
-# ------------------------------------------------------
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-gemini = genai.GenerativeModel("gemini-2.0-flash")
-
-# ------------------------------------------------------
-# LOAD MODEL
+# LOAD MODEL + FILES
 # ------------------------------------------------------
 @st.cache_resource
 def load_model():
@@ -76,45 +20,55 @@ def load_model():
 
 model = load_model()
 
-# ------------------------------------------------------
-# LOAD JSON FILES
-# ------------------------------------------------------
 @st.cache_data
 def load_labels():
-    return {int(v): k for k, v in json.load(open("class_indices.json")).items()}
+    with open("class_indices.json") as f:
+        data = json.load(f)
+    return {int(v): k for k, v in data.items()}
+
+label_map = load_labels()
 
 @st.cache_data
 def load_breed_info():
-    data = json.load(open("120_breeds_new.json"))
+    with open("120_breeds_new.json") as f:
+        data = json.load(f)
     return {item["Breed"]: item for item in data}
 
-label_map = load_labels()
 breed_info = load_breed_info()
 
 # ------------------------------------------------------
-# NORMALIZATION
+# BREED INFO RESOLVER
 # ------------------------------------------------------
-def normalize(s):
-    return re.sub(r'[^a-z0-9]', "", s.lower())
+import re
 
-# ------------------------------------------------------
-# BREED DETAILS
-# ------------------------------------------------------
+def normalize(name):
+    return re.sub(r"[^a-z0-9]", "", name.lower())
+
 def get_breed_details(pred_breed):
-    clean = normalize(pred_breed)
+    pred_clean = normalize(pred_breed)
 
+    # 1. Exact match
     for breed in breed_info:
-        if normalize(breed) == clean:
-            return breed_info[breed]
+        if normalize(breed) == pred_clean:
+            return format_info(breed)
 
+    # 2. Partial match
     for breed in breed_info:
-        if clean in normalize(breed):
-            return breed_info[breed]
+        if pred_clean in normalize(breed):
+            return format_info(breed)
 
-    return None
+    return "No details available."
+
+def format_info(breed):
+    info = breed_info[breed]
+    text = f"### 📘 About {breed}\n\n"
+    for k, v in info.items():
+        if k != "Breed":
+            text += f"**{k}:** {v}\n\n"
+    return text
 
 # ------------------------------------------------------
-# PREDICT BREED (unchanged)
+# BREED PREDICTION
 # ------------------------------------------------------
 def predict_breed(img):
     img = img.resize((224, 224))
@@ -124,70 +78,55 @@ def predict_breed(img):
 
     pred = model.predict(arr)
     idx = int(np.argmax(pred))
-    return label_map[idx], float(np.max(pred) * 100)
+    breed = label_map[idx]
+    conf = float(np.max(pred) * 100)
+    return breed, conf
 
 # ------------------------------------------------------
-# CHATBOT — Streamlit-Native Popup
-# ------------------------------------------------------
-if "chat_open" not in st.session_state:
-    st.session_state.chat_open = False
-
-def toggle_chat():
-    st.session_state.chat_open = not st.session_state.chat_open
-
-st.sidebar.button("🐶 Open Chatbot", on_click=toggle_chat)
-
-if st.session_state.chat_open:
-    st.sidebar.markdown("### 🐾 Dog AI Chatbot")
-    msg = st.sidebar.text_input("Ask me anything about dogs:")
-    if st.sidebar.button("Send"):
-        if msg.strip():
-            reply = gemini.generate_content(msg).text
-            st.sidebar.write("**AI:** ", reply)
-
-# ------------------------------------------------------
-# HISTORY
+# SESSION HISTORY INIT
 # ------------------------------------------------------
 if "history" not in st.session_state:
-    st.session_state.history = []
+    st.session_state["history"] = []
 
 # ------------------------------------------------------
-# NAVIGATION
+# SIDEBAR NAVIGATION
 # ------------------------------------------------------
-page = st.sidebar.radio("Navigate", ["🏠 Home", "🐶 Breed Detector", "📜 History"])
+page = st.sidebar.radio("Navigate", ["🏠 Home", "🐶 Breed Detector", "📜 Prediction History"])
 
 # ------------------------------------------------------
 # HOME PAGE
 # ------------------------------------------------------
 if page == "🏠 Home":
     st.title("🐾 Dog Breed Detection System")
-    st.markdown(
-        """
-        ### Welcome!  
-        - 🧠 CNN model trained on 120 dog breeds  
-        - 📸 Real-time breed prediction  
-        - 💬 Gemini-powered chatbot  
-        - 📘 Detailed breed info  
-        - 📝 Prediction history  
-        """
-    )
+    st.write("""
+    ### Welcome!
+
+    This application includes:
+
+    - 🧠 A CNN model trained on 120 dog breeds  
+    - 📸 Real-time dog breed prediction  
+    - 🤖 AI chatbot powered by Gemini  
+    - 📘 Detailed breed information  
+    - 📝 Prediction history  
+    """)
+
+    st.page_link("chatbot.py", label="💬 Open Dog Chatbot", icon="🤖")
 
 # ------------------------------------------------------
-# DETECTOR PAGE
+# BREED DETECTOR PAGE
 # ------------------------------------------------------
 elif page == "🐶 Breed Detector":
     st.title("🐶 Dog Breed Detector")
-    st.markdown('<div class="card">', unsafe_allow_html=True)
 
-    upload = st.file_uploader("Upload a dog image", type=["jpg", "jpeg", "png"])
+    uploaded = st.file_uploader("Upload a dog image", type=["jpg", "jpeg", "png", "webp"])
 
-    if upload:
-        img = Image.open(upload).convert("RGB")
-        st.image(img, width=350)
+    if uploaded:
+        img = Image.open(uploaded).convert("RGB")
+        st.image(img, width=300)
 
         breed, conf = predict_breed(img)
-        st.success(f"### 🐾 Breed: {breed}")
-        st.info(f"### 📊 Confidence: {conf:.2f}%")
+        st.success(f"### 🐾 Breed: **{breed}**")
+        st.info(f"### 📊 Confidence: **{conf:.2f}%**")
 
         st.session_state.history.append({
             "image": img,
@@ -195,30 +134,20 @@ elif page == "🐶 Breed Detector":
             "conf": conf
         })
 
-        # KNOW MORE — FIXED
         if st.button("Know More 🐾"):
-            info = get_breed_details(breed)
-            if info:
-                st.markdown(f"## 📘 About {breed}")
-                for k, v in info.items():
-                    if k != "Breed":
-                        st.write(f"**{k}:** {v}")
-            else:
-                st.warning("No info available.")
-
-    st.markdown('</div>', unsafe_allow_html=True)
+            st.markdown(get_breed_details(breed))
 
 # ------------------------------------------------------
 # HISTORY PAGE
 # ------------------------------------------------------
-elif page == "📜 History":
+elif page == "📜 Prediction History":
     st.title("📜 Prediction History")
 
-    if not st.session_state.history:
+    if len(st.session_state.history) == 0:
         st.info("No predictions yet.")
     else:
-        for h in st.session_state.history:
-            st.image(h["image"], width=180)
-            st.write(f"**Breed:** {h['breed']}")
-            st.write(f"**Confidence:** {h['conf']:.2f}%")
+        for item in st.session_state.history:
+            st.image(item["image"], width=200)
+            st.write(f"**Breed:** {item['breed']}")
+            st.write(f"**Confidence:** {item['conf']:.2f}%")
             st.markdown("---")
