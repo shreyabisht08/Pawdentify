@@ -15,7 +15,6 @@ st.set_page_config(
     page_title="🐾 Pawdentify - Dog Breed Detector",
     layout="wide",
     initial_sidebar_state="expanded",
-    theme="light"  # Default theme
 )
 
 
