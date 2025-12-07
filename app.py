@@ -258,6 +258,20 @@ def load_info():
 breed_info = load_info()
 
 
+@st.cache_data
+def load_diet_plans():
+    with open("120_diet_plans.json", "r") as f:
+        data = json.load(f)
+    # Create a dictionary indexed by breed name (lowercase)
+    diet_dict = {}
+    for item in data:
+        breed_name = item["name"].strip().lower()
+        diet_dict[breed_name] = item.get("diet_plan", {})
+    return diet_dict
+
+diet_plans = load_diet_plans()
+
+
 # Create a mapping from model labels to breed info
 def normalize_breed_name(breed):
     """Normalize breed name for matching with JSON data"""
@@ -503,6 +517,7 @@ elif page == "🐶 Breed Detector":
             if st.session_state.get("show_details", False):
                 if st.button("Close ✕", use_container_width=True):
                     st.session_state.show_details = False
+                    st.session_state.show_diet = False
                     st.rerun()
         
         if st.session_state.get("show_details", False):
@@ -523,6 +538,46 @@ elif page == "🐶 Breed Detector":
                         """, unsafe_allow_html=True)
                 
                 st.markdown("</div>", unsafe_allow_html=True)
+                
+                # Diet Plan Section
+                st.markdown("---")
+                if st.button("🍖 View Diet Plan for This Breed", use_container_width=True):
+                    st.session_state.show_diet = not st.session_state.get("show_diet", False)
+                
+                if st.session_state.get("show_diet", False):
+                    breed_name_lower = normalize_breed_name(breed).lower() if normalize_breed_name(breed) else breed.lower()
+                    
+                    if breed_name_lower in diet_plans:
+                        diet_data = diet_plans[breed_name_lower]
+                        
+                        st.markdown(f"""
+                            <div class='breed-details'>
+                                <h2>🍖 Diet Plan - {breed}</h2>
+                        """, unsafe_allow_html=True)
+                        
+                        # Create tabs for puppy, adult, and senior
+                        diet_tabs = st.tabs(["👶 Puppy", "👨 Adult", "👴 Senior"])
+                        
+                        life_stages = ["puppy", "adult", "senior"]
+                        
+                        for idx, (tab, stage) in enumerate(zip(diet_tabs, life_stages)):
+                            with tab:
+                                if stage in diet_data:
+                                    st.markdown(f"### {stage.capitalize()} Diet Plan")
+                                    stage_diet = diet_data[stage]
+                                    
+                                    for day, meal in stage_diet.items():
+                                        st.markdown(f"""
+                                            <div class='breed-details-item'>
+                                                <b>{day.capitalize()}:</b> {meal}
+                                            </div>
+                                        """, unsafe_allow_html=True)
+                                else:
+                                    st.warning(f"No {stage} diet plan available")
+                        
+                        st.markdown("</div>", unsafe_allow_html=True)
+                    else:
+                        st.warning(f"❌ No diet plan available for {breed}.")
             else:
                 st.warning("❌ No detailed information available for this breed.")
 
