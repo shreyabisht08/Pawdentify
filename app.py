@@ -187,7 +187,13 @@ model = load_model()
 def load_labels():
     with open("class_indices.json") as f:
         classes = json.load(f)
-    return {int(v): k for k, v in classes.items()}
+    # Extract just the breed names (remove ImageNet ID prefix like 'n02085620-')
+    label_dict = {}
+    for k, v in classes.items():
+        # Remove the ImageNet ID prefix (everything before the dash)
+        breed_name = k.split('-', 1)[1] if '-' in k else k
+        label_dict[int(v)] = breed_name
+    return label_dict
 
 label_map = load_labels()
 
@@ -216,31 +222,20 @@ def normalize_breed_name(breed):
     """Normalize breed name for matching with JSON data"""
     breed = breed.strip()
     
-    # Try exact match first
-    if breed in breed_info:
-        return breed
+    # First, try to find exact match (case-insensitive)
+    for key in breed_info.keys():
+        if key.lower() == breed.lower():
+            return key
     
-    # Try lowercase
-    breed_lower = breed.lower()
-    if breed_lower in breed_info:
-        return breed_lower
+    # Try with underscores/spaces normalization
+    breed_normalized = breed.lower().replace(" ", "_").replace("-", "_")
+    for key in breed_info.keys():
+        key_normalized = key.lower().replace(" ", "_").replace("-", "_")
+        if key_normalized == breed_normalized:
+            return key
     
-    # Try replacing spaces with underscores
-    breed_underscore = breed.replace(" ", "_")
-    if breed_underscore in breed_info:
-        return breed_underscore
-    
-    # Try replacing underscores with spaces
-    breed_spaces = breed.replace("_", " ")
-    if breed_spaces in breed_info:
-        return breed_spaces
-    
-    # Try lowercase with underscores
-    breed_underscore_lower = breed.lower().replace(" ", "_")
-    if breed_underscore_lower in breed_info:
-        return breed_underscore_lower
-    
-    return breed
+    # If no match found, return original (will return None in get_breed_details)
+    return None
 
 
 # ------------------------------------------------------
@@ -264,7 +259,7 @@ def predict_breed(img):
 # ------------------------------------------------------
 def get_breed_details(breed):
     normalized_breed = normalize_breed_name(breed)
-    if normalized_breed in breed_info:
+    if normalized_breed and normalized_breed in breed_info:
         return breed_info[normalized_breed]
     return None
 
