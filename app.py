@@ -14,134 +14,182 @@ import re
 st.set_page_config(page_title="Dog Breed Detector", layout="wide")
 
 # ------------------------------------------------------
-# CUSTOM CSS (Dog Theme + Popup Chatbot + Background)
+# DARK MODE TOGGLE
+# ------------------------------------------------------
+if "dark_mode" not in st.session_state:
+    st.session_state.dark_mode = False
+
+def toggle_dark_mode():
+    st.session_state.dark_mode = not st.session_state.dark_mode
+
+st.sidebar.markdown("### 🌓 Theme")
+st.sidebar.button("Toggle Dark / Light Mode", on_click=toggle_dark_mode)
+
+# ------------------------------------------------------
+# COLOR SYSTEM CSS (LIGHT + DARK)
+# ------------------------------------------------------
+light_css = """
+<style>
+:root {
+    --bg-main: #ffffff;
+    --card-bg: #fffdf7;
+    --border-color: #d2b48c;
+    --heading-color: #3c2f2f;
+    --text-color: #333;
+    --chat-header: #8b5e34;
+    --chat-bg: #fffaf2;
+    --user-bubble: #d1e7ff;
+    --ai-bubble: #ffe8c6;
+}
+</style>
+"""
+
+dark_css = """
+<style>
+:root {
+    --bg-main: #1c1c1c;
+    --card-bg: #2a2a2a;
+    --border-color: #c49b63;
+    --heading-color: #f5deb3;
+    --text-color: #e6e6e6;
+    --chat-header: #b8860b;
+    --chat-bg: #252525;
+    --user-bubble: #4a76a8;
+    --ai-bubble: #8b6f47;
+}
+</style>
+"""
+
+st.markdown(dark_css if st.session_state.dark_mode else light_css, unsafe_allow_html=True)
+
+# ------------------------------------------------------
+# MAIN UI CSS
 # ------------------------------------------------------
 custom_css = """
 <style>
 
 body, .main {
     font-family: 'Poppins', sans-serif;
+    background: var(--bg-main);
+    color: var(--text-color);
 }
 
-/* HOME PAGE BACKGROUND */
-.home-background {
+/*************** HOME BACKGROUND ***************/
+.home-bg {
     background-image: url('https://images.unsplash.com/photo-1517849845537-4d257902454a');
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 80px;
+    padding: 100px;
     border-radius: 18px;
     position: relative;
 }
-
-.home-background::before {
-    content: '';
+.home-bg::before {
+    content: "";
     position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(255,255,255,0.75);
+    inset: 0;
+    background: rgba(255,255,255,0.78);
     border-radius: 18px;
     backdrop-filter: blur(3px);
 }
+.home-content { position: relative; z-index: 5; }
 
-.home-content {
-    position: relative;
-    z-index: 10;
-}
-
-/* DOG CARD */
+/*************** DOG CARD ***************/
 .dog-card {
-    padding: 20px;
-    border-radius: 15px;
-    background: #fffdf7;
-    border: 2px solid #d2b48c;
-    box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 16px;
+    border: 2px solid var(--border-color);
+    box-shadow: 0 4px 18px rgba(0,0,0,0.15);
 }
 
-/* CHATBOT POPUP */
-#chat-popup {
+/*************** CHATBOT POPUP ***************/
+#chatbot-box {
     position: fixed;
-    bottom: 110px;
+    bottom: 120px;
     right: 35px;
-    width: 340px;
-    height: 460px;
-    background: #ffffff;
-    border-radius: 15px;
-    border: 2px solid #bb9b72;
-    padding: 0;
+    width: 360px;
+    height: 500px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 18px;
     display: none;
-    box-shadow: 0px 6px 28px rgba(0,0,0,0.25);
-    animation: slideUp 0.4s ease-out forwards;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.3);
+    animation: slideIn .4s ease-out forwards;
     z-index: 999999;
 }
 
-@keyframes slideUp {
+@keyframes slideIn {
     from { transform: translateY(80px); opacity: 0; }
-    to   { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-/* CHATBOT HEADER */
 .chat-header {
-    background: #7b573c;
-    color: white;
+    background: var(--chat-header);
     padding: 15px;
-    border-radius: 12px 12px 0 0;
+    color: white;
     font-size: 18px;
-    font-weight: 600;
+    border-radius: 16px 16px 0 0;
 }
 
-#chat-close {
-    float: right;
-    cursor: pointer;
-    color: white;
-    font-size: 20px;
-}
-
-/* CHATBOT CONTENT */
 .chat-body {
+    height: 360px;
     padding: 15px;
-    height: 330px;
     overflow-y: auto;
+    background: var(--chat-bg);
 }
 
-/* CHATBOT INPUT BOX */
-.chat-input-box {
+/*************** CHAT BUBBLES ***************/
+.user-bubble {
+    background: var(--user-bubble);
+    padding: 10px 14px;
+    border-radius: 20px;
+    margin: 8px 0;
+    width: fit-content;
+}
+
+.ai-bubble {
+    background: var(--ai-bubble);
+    padding: 10px 14px;
+    border-radius: 20px;
+    margin: 8px 0;
+    width: fit-content;
+}
+
+/*************** INPUT AREA ***************/
+.chat-input-area {
     padding: 10px;
-    border-top: 1px solid #d8c2a6;
+    background: var(--bg-main);
+    border-top: 2px solid var(--border-color);
+}
+.chat-input {
+    width: 75%;
+    padding: 8px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
 }
 
-/* FLOATING CHAT ICON */
-#chat-btn {
+/*************** CHAT ICON ***************/
+#chatbot-icon {
     position: fixed;
     bottom: 35px;
     right: 35px;
-    background: #8b5e34;
-    color: white;
-    border-radius: 50px;
-    padding: 14px;
-    font-size: 22px;
+    width: 70px;
     cursor: pointer;
-    border: none;
-    z-index: 99999;
-    transition: 0.3s;
+    z-index: 999999;
 }
-#chat-btn:hover { background: #5c3b21; }
 
 </style>
-"""
 
-st.markdown(custom_css, unsafe_allow_html=True)
-
-# JS for chatbot toggle
-toggle_js = """
 <script>
 function toggleChat() {
-    const chat = document.getElementById("chat-popup");
-    chat.style.display = chat.style.display === "block" ? "none" : "block";
+    var x = document.getElementById("chatbot-box");
+    x.style.display = (x.style.display === "block") ? "none" : "block";
 }
 </script>
 """
-st.markdown(toggle_js, unsafe_allow_html=True)
+
+st.markdown(custom_css, unsafe_allow_html=True)
 
 # ------------------------------------------------------
 # GEMINI CONFIG
@@ -150,7 +198,7 @@ genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
 gemini = genai.GenerativeModel("gemini-2.0-flash")
 
 # ------------------------------------------------------
-# LOAD MODEL + JSON DATA
+# LOAD MODEL
 # ------------------------------------------------------
 @st.cache_resource
 def load_model():
@@ -158,6 +206,9 @@ def load_model():
 
 model = load_model()
 
+# ------------------------------------------------------
+# LOAD JSON DATA
+# ------------------------------------------------------
 @st.cache_data
 def load_labels():
     with open("class_indices.json") as f:
@@ -168,54 +219,52 @@ label_map = load_labels()
 
 @st.cache_data
 def load_info():
-    with open("120_breeds_new.json", "r") as f:
+    with open("120_breeds_new.json") as f:
         data = json.load(f)
     return {item["Breed"]: item for item in data}
 
 breed_info = load_info()
 
 # ------------------------------------------------------
-# CLEAN + SMART MATCHING FOR KNOW MORE
+# SMART BREED MATCHING
 # ------------------------------------------------------
-def clean_name(name):
-    return re.sub(r'[^a-z0-9 ]', '', name.lower().replace("_", " ").strip())
+def normalize(n):
+    return re.sub(r'[^a-z0-9]', "", n.lower())
 
-def get_breed_details(predicted_breed):
-    pred_clean = clean_name(predicted_breed)
-
-    # Exact clean match
-    for breed in breed_info:
-        if clean_name(breed) == pred_clean:
-            return format_details(breed_info[breed], breed)
-
-    # Partial match (German Shepherd vs German Shepherd Dog)
-    for breed in breed_info:
-        if pred_clean in clean_name(breed):
-            return format_details(breed_info[breed], breed)
-
-    return "No details available."
-
-def format_details(info, breed):
-    text = f"### 📘 About {breed}\n"
+def format_info(breed):
+    info = breed_info[breed]
+    text = f"### 📘 About {breed}\n\n"
     for k, v in info.items():
         if k != "Breed":
             text += f"**{k}:** {v}\n\n"
     return text
 
+def get_breed_details(pred_breed):
+    clean = normalize(pred_breed)
+
+    # exact match
+    for breed in breed_info:
+        if normalize(breed) == clean:
+            return format_info(breed)
+
+    # partial match
+    for breed in breed_info:
+        if clean in normalize(breed):
+            return format_info(breed)
+
+    return "No details available."
+
 # ------------------------------------------------------
-# PREDICT BREED (UNCHANGED)
+# PREDICT BREED (your logic unchanged)
 # ------------------------------------------------------
 def predict_breed(img):
     img = img.resize((224, 224))
     arr = image.img_to_array(img)
     arr = np.expand_dims(arr, 0)
     arr = preprocess_input(arr)
-
     pred = model.predict(arr)
     idx = int(np.argmax(pred))
-    breed = label_map[idx]
-    conf = float(np.max(pred) * 100)
-    return breed, conf
+    return label_map[idx], float(np.max(pred) * 100)
 
 # ------------------------------------------------------
 # HISTORY
@@ -224,27 +273,23 @@ if "history" not in st.session_state:
     st.session_state["history"] = []
 
 # ------------------------------------------------------
-# SIDEBAR
+# SIDEBAR NAVIGATION
 # ------------------------------------------------------
-page = st.sidebar.radio("Navigate", ["🏠 Home", "🐶 Breed Detector", "📜 Prediction History"])
+page = st.sidebar.radio("Navigate", ["🏠 Home", "🐶 Breed Detector", "📜 History"])
 
 # ------------------------------------------------------
 # HOME PAGE
 # ------------------------------------------------------
 if page == "🏠 Home":
-    st.markdown('<div class="home-background"><div class="home-content">', unsafe_allow_html=True)
-
+    st.markdown('<div class="home-bg"><div class="home-content">', unsafe_allow_html=True)
     st.title("🐾 Dog Breed Detection System")
     st.write("""
-    This application includes:
-
-    - 🧠 AI model trained on 120 dog breeds  
-    - 📸 Real-time dog breed prediction  
-    - 🤖 Dog chatbot powered by Gemini  
-    - 📘 Detailed breed knowledge  
-    - 📝 Prediction history  
+    - 🧠 Trained on 120 dog breeds  
+    - 📸 Real-time dog breed detection  
+    - 🐕 Detailed breed information  
+    - 💬 Dog Chatbot powered by Gemini  
+    - 📝 Prediction History  
     """)
-
     st.markdown('</div></div>', unsafe_allow_html=True)
 
 # ------------------------------------------------------
@@ -254,7 +299,7 @@ elif page == "🐶 Breed Detector":
     st.title("🐶 Dog Breed Detector")
     st.markdown('<div class="dog-card">', unsafe_allow_html=True)
 
-    uploaded = st.file_uploader("Upload a dog image", type=["jpg","jpeg","png","webp"])
+    uploaded = st.file_uploader("Upload a dog image", type=["jpg", "jpeg", "png", "webp"])
 
     if uploaded:
         img = Image.open(uploaded).convert("RGB")
@@ -262,7 +307,7 @@ elif page == "🐶 Breed Detector":
 
         breed, conf = predict_breed(img)
         st.success(f"### 🐾 Breed: **{breed}**")
-        st.info(f"### 📊 Confidence: **{conf:.2f}%**")
+        st.info(f"### 📊 Confidence: {conf:.2f}%")
 
         st.session_state.history.append({"image": img, "breed": breed, "conf": conf})
 
@@ -274,10 +319,9 @@ elif page == "🐶 Breed Detector":
 # ------------------------------------------------------
 # HISTORY PAGE
 # ------------------------------------------------------
-elif page == "📜 Prediction History":
+elif page == "📜 History":
     st.title("📜 Prediction History")
-
-    if len(st.session_state.history) == 0:
+    if not st.session_state.history:
         st.info("No predictions yet.")
     else:
         for h in st.session_state.history:
@@ -287,34 +331,62 @@ elif page == "📜 Prediction History":
             st.markdown("---")
 
 # ------------------------------------------------------
-# CHATBOT POPUP - Hidden until clicked
+# CHATBOT POPUP
 # ------------------------------------------------------
 st.markdown("""
-<div id="chat-popup">
+<img id="chatbot-icon" src="https://cdn-icons-png.flaticon.com/512/4712/4712100.png" onclick="toggleChat()">
+
+<div id="chatbot-box">
     <div class="chat-header">
         🐶 Dog Chatbot
-        <span id="chat-close" onclick="toggleChat()">✖</span>
+        <span onclick="toggleChat()" style="float:right; cursor:pointer;">✖</span>
     </div>
 
-    <div class="chat-body" id="chat-body">
-        <p><b>👋 Hi! I'm your Dog Assistant!</b></p>
-        <p>Ask me anything about dogs.</p>
-    </div>
+    <div class="chat-body" id="chat-body"></div>
 
-    <div class="chat-input-box">
-""", unsafe_allow_html=True)
-
-popup_input = st.text_input("Message", key="chat_input_popup")
-
-if st.button("Send", key="chat_send_popup"):
-    if popup_input.strip():
-        reply = gemini.generate_content(popup_input).text
-        st.markdown(f"**You:** {popup_input}")
-        st.markdown(f"**AI:** {reply}")
-
-st.markdown("""
+    <div class="chat-input-area">
+        <input id="chat-msg" class="chat-input" placeholder="Ask something...">
+        <button onclick="sendMsg()">Send</button>
     </div>
 </div>
 
-<button id="chat-btn" onclick="toggleChat()">💬</button>
+<script>
+function sendMsg() {
+    let msg = document.getElementById("chat-msg").value;
+    if (msg.trim() === "") return;
+
+    document.getElementById("chat-body").innerHTML +=
+      '<div class="user-bubble"><b>You:</b> ' + msg + '</div>';
+
+    const hidden = document.createElement("textarea");
+    hidden.name = "hidden_msg";
+    hidden.value = msg;
+    hidden.style.display = "none";
+    document.body.appendChild(hidden);
+
+    document.getElementById("hidden-btn").click();
+    document.getElementById("chat-msg").value = "";
+}
+</script>
 """, unsafe_allow_html=True)
+
+# Hidden Streamlit callback
+hidden = st.button("SEND", key="hidden-btn")
+
+if hidden:
+    msg = st.session_state.get("hidden_msg", "")
+    if msg:
+        reply = gemini.generate_content(msg).text
+        st.session_state["bot_reply"] = reply
+
+if "bot_reply" in st.session_state:
+    r = st.session_state["bot_reply"]
+    st.markdown(
+        f"""
+        <script>
+        document.getElementById("chat-body").innerHTML +=
+          '<div class="ai-bubble"><b>AI:</b> {r}</div>';
+        </script>
+        """,
+        unsafe_allow_html=True
+    )
