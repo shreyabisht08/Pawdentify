@@ -196,9 +196,51 @@ label_map = load_labels()
 def load_info():
     with open("120_breeds_new.json", "r") as f:
         data = json.load(f)
-    return {item["Breed"].strip(): item for item in data}
+    # Create mappings for different name formats
+    breed_dict = {}
+    for item in data:
+        breed_name = item["Breed"].strip()
+        # Add original breed name
+        breed_dict[breed_name] = item
+        # Add alternative formats for matching
+        breed_dict[breed_name.lower()] = item
+        breed_dict[breed_name.replace("_", " ")] = item
+        breed_dict[breed_name.replace("_", " ").lower()] = item
+    return breed_dict
 
 breed_info = load_info()
+
+
+# Create a mapping from model labels to breed info
+def normalize_breed_name(breed):
+    """Normalize breed name for matching with JSON data"""
+    breed = breed.strip()
+    
+    # Try exact match first
+    if breed in breed_info:
+        return breed
+    
+    # Try lowercase
+    breed_lower = breed.lower()
+    if breed_lower in breed_info:
+        return breed_lower
+    
+    # Try replacing spaces with underscores
+    breed_underscore = breed.replace(" ", "_")
+    if breed_underscore in breed_info:
+        return breed_underscore
+    
+    # Try replacing underscores with spaces
+    breed_spaces = breed.replace("_", " ")
+    if breed_spaces in breed_info:
+        return breed_spaces
+    
+    # Try lowercase with underscores
+    breed_underscore_lower = breed.lower().replace(" ", "_")
+    if breed_underscore_lower in breed_info:
+        return breed_underscore_lower
+    
+    return breed
 
 
 # ------------------------------------------------------
@@ -221,10 +263,9 @@ def predict_breed(img):
 # BREED DETAILS - ENHANCED
 # ------------------------------------------------------
 def get_breed_details(breed):
-    breed = breed.strip()
-    if breed in breed_info:
-        d = breed_info[breed]
-        return d
+    normalized_breed = normalize_breed_name(breed)
+    if normalized_breed in breed_info:
+        return breed_info[normalized_breed]
     return None
 
 
